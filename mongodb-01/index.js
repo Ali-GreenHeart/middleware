@@ -1,21 +1,9 @@
 import express from 'express';
-import { MongoClient, ServerApiVersion } from 'mongodb';
+import userRouter from './routers/users.js';
+import client from './utils/mongoClient.js';
 
-const uri = "mongodb+srv://node02:node02pwd@node02-cluster.wvcagzx.mongodb.net/?retryWrites=true&w=majority&appName=node02-cluster";
-// connection string -> RDMBS (mssql, mysql)
 const app = express()
-
-const client = new MongoClient(uri, {
-    serverApi: {
-        version: ServerApiVersion.v1,
-        deprecationErrors: true,
-    }
-});
-
-client.connect().then(() => {
-    console.log('connect mongodb successfully')
-})
-
+app.use("/users", userRouter)
 
 app.get('/', (req, res) => {
     client
