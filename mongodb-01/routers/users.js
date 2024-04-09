@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createUser, getUserById, getUsers } from "../services/user.js";
+import { createUser, deleteUser, getUserById, getUsers, updateUser } from "../services/user.js";
 
 const userRouter = new Router();
 
@@ -20,6 +20,11 @@ userRouter.post('/', async (req, res) => {
     })
 })
 userRouter.put('/:id', async (req, res) => {
-
+    const up = await updateUser(req.params.id, req.body)
+    res.send({ message: "User successfully updated!" })
+})
+userRouter.delete('/:id', async (req, res) => {
+    await deleteUser(req.params.id)
+    res.send({ message: "User successfully deleted!" })
 })
 export default userRouter;

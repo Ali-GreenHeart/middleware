@@ -23,3 +23,17 @@ export const createUser = async (newUser) => {
     const { insertedId } = await collection.insertOne(newUser)
     return insertedId;
 }
+
+export const updateUser = async (id, body) => {
+    const updatedUser = await collection.updateOne({
+        _id: getByObjectId(id)
+    }, {
+        $set: body
+    })
+    return updatedUser
+}
+export const deleteUser = async (id) => {
+    await collection.deleteOne({
+        _id: getByObjectId(id)
+    })
+}
