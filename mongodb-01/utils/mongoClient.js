@@ -1,4 +1,4 @@
-import { MongoClient, ServerApiVersion } from 'mongodb';
+import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb';
 
 const uri = "mongodb+srv://node02:node02pwd@node02-cluster.wvcagzx.mongodb.net/?retryWrites=true&w=majority&appName=node02-cluster";
 // connection string -> RDMBS (mssql, mysql)
@@ -16,3 +16,8 @@ client.connect().then(() => {
 })
 
 export default client;
+
+export function getByObjectId(id) {
+    return new ObjectId(id)
+}
+

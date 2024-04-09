@@ -3,6 +3,7 @@ import userRouter from './routers/users.js';
 import client from './utils/mongoClient.js';
 
 const app = express()
+app.use(express.json())
 app.use("/users", userRouter)
 
 app.get('/', (req, res) => {
