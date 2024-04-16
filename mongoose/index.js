@@ -1,13 +1,9 @@
 import express from 'express'
-import mongoose from 'mongoose'
 import bookModel from './model/book.js'
+import connectDb from './connect.js'
 
+connectDb()
 
-const connectionString = `mongodb+srv://node02:node02@cluster0.twl8ykw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
-mongoose.connect(connectionString)
-    .then((value) => {
-        console.log('mongodb connected')
-    })
 
 const app = express()
 app.use(express.json())
