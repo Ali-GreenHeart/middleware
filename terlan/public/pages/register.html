@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+  </head>
+  <style>
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+      grid-gap: 10px;
+      margin: 0 auto;
+    }
+    h1 {
+      text-align: center;
+    }
+    input {
+      padding: 5px;
+    }
+    button {
+      padding: 5px;
+    }
+  </style>
+  <body>
+    <h1>Register</h1>
+    <form action="/users/register" method="post" enctype="multipart/form-data">
+      <input name="name" type="text" placeholder="name" />
+      <input name="surname" type="text" placeholder="surname" />
+      <input name="email" type="text" placeholder="Email" />
+      <input name="phone" type="number" placeholder="phone" />
+      <input name="address" type="text" placeholder="Address" />
+      <input name="password" type="password" placeholder="password" />
+      <input name="profilePicture" type="file" placeholder="file" />
+      <button type="submit">Register</button>
+    </form>
+  </body>
+</html>
