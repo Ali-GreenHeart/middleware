@@ -4,7 +4,8 @@ const productModel = model("product",
     new Schema({
         name: String,
         price: Number,
-        category: mongoose.ObjectId
+        category: mongoose.ObjectId,
+        filename: String
     })
 )
 

@@ -6,25 +6,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        #root {
+            padding: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .product {
+            max-width: 200px;
+            border: 1px solid;
+            border-radius: 4px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .product img {
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body>
-    <form action="/add-product" method="post" enctype="multipart/form-data">
-        <select name="category">
-            <option value="662b4a5ce06d8aec88183a98">kisi</option>
-            <option value="662b4a65e06d8aec88183a99">qadin</option>
-            <option value="662b4a74e06d8aec88183a9a">usaq</option>
-        </select>
-        <button type="submit">register</button>
-    </form>
+    <select id="category" name="category">
+        <option value="">hamisi</option>
+        <option value="662b4a5ce06d8aec88183a98">kisi</option>
+        <option value="662b4a65e06d8aec88183a99">qadin</option>
+        <option value="662b4a74e06d8aec88183a9a">usaq</option>
+    </select>
+    <div id="root">
 
+    </div>
     <script>
+        const rootElem = document.getElementById('root')
         const url = 'http://localhost:4567/products'
-        fetch(url)
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data)
+        writeProducts(url)
+
+        const category = document.getElementById('category')
+        category.onchange = (e) => {
+            console.log(e.target.value)
+            rootElem.innerHTML = ''
+            writeProducts(url + `?category=${e.target.value}`)
+        }
+
+
+        function writeProducts(url) {
+            fetch(url)
+                .then((res) => res.json())
+                .then((products) => {
+                    products.forEach(({ _id, filename, name, price }) => {
+                        const prod = document.createElement('div')
+                        prod.className = 'product'
+                        const img = document.createElement('img')
+                        img.src = `/` + filename
+                        const button = document.createElement('button')
+                        button.textContent = '❌'
+                        button.onclick = () => {
+                            deleteproduct(_id)
+                        }
+                        const h1 = document.createElement('h1')
+                        h1.textContent = name
+                        const h2 = document.createElement('h2')
+                        h2.textContent = price
+                        prod.append(img, button, h1, h2)
+                        rootElem.appendChild(prod)
+                    })
+                })
+        }
+        function deleteproduct(id) {
+            fetch(`http://localhost:4567/product/${id}`, {
+                method: 'delete'
+            }).then(() => {
+                location.reload()
             })
+        }
+
     </script>
 </body>
 
