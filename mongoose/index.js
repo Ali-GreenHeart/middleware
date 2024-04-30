@@ -2,6 +2,10 @@ import express from 'express'
 import connectDb from './connect.js'
 import userModel from './model/userModel.js'
 import bcrypt from 'bcrypt'
+import jwt from "jsonwebtoken"
+import { secretJwt } from './secret.js'
+import checkIsAuthMiddleware from './middlewares/checkIsAuth.js'
+
 
 connectDb()
 const app = express()
@@ -19,7 +23,9 @@ app.post('/login', async (req, res) => {
     if (passwordInDb) {
         const isPwdTrue = await bcrypt.compare(password, passwordInDb)
         if (isPwdTrue) {
-            res.send(frontUser)
+            // res.send(frontUser)
+            const token = jwt.sign({ id: frontUser._id }, secretJwt)
+            res.send(token)
         } else {
             res.status(401).send('Password is wrong!')
         }
@@ -28,8 +34,10 @@ app.post('/login', async (req, res) => {
     }
 })
 
-app.get('/profile', async (req, res) => {
-    // 1. adam login etmis olmalidir!
+app.get('/profile', checkIsAuthMiddleware, async (req, res) => {
+    const id = req.user.id
+    const user = await userModel.findById(id).select("-password")
+    res.status(200).send(user)
     // 2. ozunun profile-melumatlarini gormelidir!
     // JWT!
 })
