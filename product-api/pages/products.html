@@ -29,12 +29,18 @@
 </head>
 
 <body>
-    <select id="category" name="category">
+    <div>
+        <button onclick="btnOnclick('')">hamisi</button>
+        <button onclick="btnOnclick('662b4a5ce06d8aec88183a98')">kisi</button>
+        <button onclick="btnOnclick('662b4a65e06d8aec88183a99')">qadin</button>
+        <button onclick="btnOnclick('662b4a74e06d8aec88183a9a')">usaq</button>
+    </div>
+    <!-- <select id="category" name="category">
         <option value="">hamisi</option>
         <option value="662b4a5ce06d8aec88183a98">kisi</option>
         <option value="662b4a65e06d8aec88183a99">qadin</option>
         <option value="662b4a74e06d8aec88183a9a">usaq</option>
-    </select>
+    </select> -->
     <div id="root">
 
     </div>
@@ -43,13 +49,10 @@
         const url = 'http://localhost:4567/products'
         writeProducts(url)
 
-        const category = document.getElementById('category')
-        category.onchange = (e) => {
-            console.log(e.target.value)
+        function btnOnclick(id) {
             rootElem.innerHTML = ''
-            writeProducts(url + `?category=${e.target.value}`)
+            writeProducts(url + `?category=${id}`)
         }
-
 
         function writeProducts(url) {
             fetch(url)
