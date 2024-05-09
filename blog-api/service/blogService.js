@@ -3,7 +3,8 @@ import model from "../model/blogModel.js"
 export const getBlogs = async () => {
     const items = await model
         .find()
-        .populate('userId categoryId')
+        .populate({ path: 'userId', select: '-password' })
+        .populate('categoryId')
         .exec()
     return items;
 }
