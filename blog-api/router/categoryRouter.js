@@ -19,3 +19,6 @@ categRouter.delete("/:id", async (req, res) => {
     const msg = await deleteCategory(req.params.id)
     res.status(200).send(msg)
 })
+
+
+export default categRouter;
