@@ -38,8 +38,6 @@ app.get('/profile', checkIsAuthMiddleware, async (req, res) => {
     const id = req.user.id
     const user = await userModel.findById(id).select("-password")
     res.status(200).send(user)
-    // 2. ozunun profile-melumatlarini gormelidir!
-    // JWT!
 })
 
 app.listen(3457, () => {
